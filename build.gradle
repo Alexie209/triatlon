@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+group 'com.example.triatlon.domain'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.8.2'
+}
+
+sourceCompatibility = '16'
+targetCompatibility = '16'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.example.triatlon.domain'
+    mainClass = 'com.example.triatlon.HelloApplication'
+}
+
+javafx {
+    version = '16'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+
+    runtimeOnly group: "org.xerial", name: "sqlite-jdbc", version: "3.36.0.3"
+
+    implementation('org.controlsfx:controlsfx:11.1.1')
+    implementation('com.dlsc.formsfx:formsfx-core:11.5.0') {
+        exclude(group: 'org.openjfx')
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
